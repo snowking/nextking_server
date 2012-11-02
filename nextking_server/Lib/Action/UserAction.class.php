@@ -19,8 +19,13 @@ class UserAction extends BaseAction {
         $filter['id'] = $uid;
 
         $list = D('User')->full($filter);
-
-        $this->ajaxReturn($list, 'Get User Success.', 1, 'json');
+        if ($list){
+           $this->ajaxReturn($list, 'Get User Success.', 1, 'json'); 
+        }
+        else{
+           $this->ajaxReturn($list, 'Get User Failed.', 200101, 'json');
+        }
+        
     }
 
     public function li() {

@@ -117,9 +117,13 @@ class AccountAction extends BaseAction {
         $arr['create_ip'] = get_client_ip();
 
         $nowAccount = M('User')->add($arr);
+        
+        $filter = array();
+        $filter['id'] = $nowAccount;
+        
         if ($nowAccount) {
             session(C('SESSION_AUTH_KEY'), $account);
-            $this->ajaxReturn($nowAccount, 'Register Success', 1, 'json');
+            $this->ajaxReturn(D('User')->full($filter), 'Register Success', 1, 'json');
         } else {
             $this->ajaxReturn(null, 'Register Failed', 100303, 'json');
         }
